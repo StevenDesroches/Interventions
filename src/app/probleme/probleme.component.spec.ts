@@ -66,4 +66,10 @@ describe('ProblemeComponent', () => {
     expect(prenom.valid).toBeTruthy();
  });
 
+ it('Test 7, zone PRÉNOM valide avec 2 espaces et 1 caractère', () => {
+    let prenom = component.produitForm.controls['prenom'];
+    prenom.setValue('  a');
+    expect(prenom.valid).toBeTruthy();
+ });
+
 });
