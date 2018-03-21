@@ -60,4 +60,10 @@ describe('ProblemeComponent', () => {
     expect(errors['minlength']).toBeTruthy();
  });
 
+ it('Test 6, zone PRÉNOM valide avec 50 espaces', () => {
+    let prenom = component.produitForm.controls['prenom'];
+    prenom.setValue(' '.repeat(50));
+    expect(prenom.valid).toBeTruthy();
+ });
+
 });
