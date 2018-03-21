@@ -52,4 +52,12 @@ describe('ProblemeComponent', () => {
     expect(errors['required']).toBeTruthy();
  });
 
+ it('Test 5, zone PRÉNOM invalide avec un caractère', () => {
+    let errors = {};
+    let prenom = component.produitForm.controls['prenom'];
+    prenom.setValue('a'.repeat(1));
+    errors = prenom.errors || {};
+    expect(errors['minlength']).toBeTruthy();
+ });
+
 });
