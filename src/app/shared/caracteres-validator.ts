@@ -14,7 +14,7 @@ export class validatorCaracter {
 
     static longueurMinimum(min: number): ValidatorFn{
         return (c: AbstractControl): {[key: string]: boolean} | null => {
-            if (c.value.length <= min) {
+            if (c.value.length < min) {
                 return { 'longueurMinimum': false};
             }
             return {'longueurMinimum': true};

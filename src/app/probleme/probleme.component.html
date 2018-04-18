@@ -13,7 +13,7 @@
             <label for="inputPrenom" class="col-md-1 col-form-label">Prénom:</label>
             <div class="col-md-10">
               <input type="text" class="form-control" id="inputPrenom" placeholder="Votre prénom ici (obligatoire)" formControlName="prenom"
-                [ngClass]="{'is-invalid': (problemeForm.get('prenom').touched || problemeForm.get('prenom').dirty) &&
+                [ngClass]="{'is-valid': (problemeForm.get('prenom').touched || problemeForm.get('prenom').dirty) &&
                   !problemeForm.get('prenom').valid,
                   'is-valid': (problemeForm.get('prenom').touched || problemeForm.get('prenom').dirty) &&
                   problemeForm.get('prenom').valid }" />

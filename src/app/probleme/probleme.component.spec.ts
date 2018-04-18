@@ -2,7 +2,8 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProblemeComponent } from './probleme.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { validatorCaracter } from '../shared/caracteres-validator';
 
 describe('ProblemeComponent', () => {
   let component: ProblemeComponent;
@@ -33,14 +34,25 @@ describe('ProblemeComponent', () => {
  });
 
   it('Test 2,zone PRÉNOM valide avec 3 caractères', () => {
-    let prenom = component.problemeForm.controls['prenom'];
-    prenom.setValue('a'.repeat(3));
-    expect(prenom.valid).toBeTruthy();
+    let errors = {};
+    let control = component.problemeForm.controls['prenom'];
+    control.setValue('a'.repeat(3));
+    errors = control.errors || {};
+    expect(errors['longueurMinimum']).toBeTruthy();
  });
 
  it('Test 3, zone PRÉNOM valide avec 200 caractères', () => {
   let prenom = component.problemeForm.controls['prenom'];
   prenom.setValue('a'.repeat(200));
+
+  let errors = {};
+  let control = component.problemeForm.controls['prenom'];
+  control.setValue('a'.repeat(3));
+  let validator = validatorCaracter.longueurMinimum(3);
+  let result = validator(control as AbstractControl);
+  errors = result.errors || {};
+  expect(result['longueurMinimum']).toBeTruthy();
+
   expect(prenom.valid).toBeTruthy();
  });
 

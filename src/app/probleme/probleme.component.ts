@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { validatorCaracter } from '../shared/caracteres-validator';
 
 @Component({
   selector: 'Inter-probleme',
@@ -13,7 +14,7 @@ export class ProblemeComponent implements OnInit {
 
   ngOnInit() {
     this.problemeForm = this.fb.group({
-      prenom: ['',Validators.compose([Validators.minLength(3), Validators.maxLength(200), Validators.required])]
+      prenom: ['',Validators.compose([validatorCaracter.longueurMinimum(3), Validators.maxLength(200), validatorCaracter.sansEspaces])]
     });
   }
 
