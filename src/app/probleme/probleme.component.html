@@ -16,7 +16,7 @@
                 [ngClass]="{'is-invalid': (problemeForm.get('prenom').touched || problemeForm.get('prenom').dirty) &&
                   !problemeForm.get('prenom').errors.longueurMinimum,
                   'is-valid': (problemeForm.get('prenom').touched || problemeForm.get('prenom').dirty) &&
-                  problemeForm.get('prenom').errors.longueurMinimum }" />
+                  problemeForm. get('prenom').errors.longueurMinimum }" />
 
                 <span class="form-text">
                     <small class="text-muted" *ngIf="problemeForm.get('prenom').errors.required">
@@ -38,7 +38,6 @@
                   'is-valid': (problemeForm.get('nom').touched || problemeForm.get('nom').dirty) &&
                   problemeForm.get('nom').errors.longueurMinimum }" />
 
-
                 <span class="form-text">
                     <small class="text-muted" *ngIf="problemeForm.get('nom').errors.required">
                         Merci de saisir votre prénom.
@@ -49,6 +48,17 @@
                 </span>
             </div>
           </div>
+          
+          <!-- La sélection de type de problemes ici -->
+          <div class="form-group row">
+              <label for="noTypeProblemeId" class="col-md-1 col-form-label">Type :</label>
+              <div class="col-md-10">
+                <select class="form-control" id="noTypeProblemeId" formControlName="noTypeProbleme">
+                  <option value="">Sélectionner un type de problème (obligatoire)</option>
+                  <option *ngFor="let cat of lesTypesProblemes" [value]="cat.id">{{cat.descriptionTypeProbleme}}</option>
+                </select>
+              </div>
+            </div>
             <!-- Le bouton est ici -->
           
           <button type="submit" class="btn btn-primary">Déclarer</button>
