@@ -1,5 +1,5 @@
 import { ITypeProbleme } from "./typeprobleme";
-import { InMemoryDbService} from 'angular-in-memory-web-api';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 export class ProblemeData implements InMemoryDbService {
     createDb() {
