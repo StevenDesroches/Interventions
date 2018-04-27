@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ProblemeData } from './probleme/probleme-data';
 import { TypeproblemeService } from './probleme/typeprobleme.service';
-import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +25,6 @@ import { HttpModule } from '@angular/http';
     AppRoutingModule,
     AngularFontAwesomeModule,
     ReactiveFormsModule,
-    HttpModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule .forRoot(ProblemeData, {delay: 1000})
   ],

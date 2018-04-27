@@ -4,6 +4,9 @@ import { ProblemeComponent } from './probleme.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ReactiveFormsModule, AbstractControl } from '@angular/forms';
 import { validatorCaracter } from '../shared/caracteres-validator';
+import { TypeproblemeService } from './typeprobleme.service';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 describe('ProblemeComponent', () => {
   let component: ProblemeComponent;
@@ -12,7 +15,8 @@ describe('ProblemeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProblemeComponent ],
-      imports: [AngularFontAwesomeModule, ReactiveFormsModule]
+      imports: [AngularFontAwesomeModule, ReactiveFormsModule, HttpClientModule, HttpModule],
+      providers:[TypeproblemeService]
     })
     .compileComponents();
   }));
@@ -81,5 +85,33 @@ describe('ProblemeComponent', () => {
     errors = control.errors || {};
     expect(errors['sansEspaces']).toBeFalsy();
  });
+
+  it('Zone TELEPHONE est désactivée quand ne pas me notifier', () => {
+    let errors = {};
+    component.appliquerNotification('NonNotification');
+    let zone = component.problemeForm.controls['telephone'];
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone TELEPHONE est vide quand ne pas me notifier ', () => {
+    let errors = {};
+    component.appliquerNotification('NonNotification');
+    let zone = component.problemeForm.controls['telephone'];
+    expect(zone.value).toBeNull();
+  });
+
+  it('Zone ADRESSE COURRIEL est désactivée quand ne pas me notifier ', () => {
+    let errors = {};
+    component.appliquerNotification('NonNotification');
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone.status).toEqual('DISABLED');
+  });
+
+  it('Zone CONFIRMER COURRIEL est désactivée quand ne pas me notifier ', () => {
+    let errors = {};
+    component.appliquerNotification('NonNotification');
+    let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    expect(zone.status).toEqual('DISABLED');
+  });
 
 });
