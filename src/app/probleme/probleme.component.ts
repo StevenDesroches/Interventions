@@ -67,8 +67,9 @@ export class ProblemeComponent implements OnInit {
       mailControl.enable();
       mailConfirmControl.setValidators([Validators.required],);
       mailConfirmControl.enable();
-      telephoneControl.setValidators([Validators.required]);
+    } else if (notification === 'textNotification') {
       telephoneControl.enable();
+      telephoneControl.setValidators([Validators.compose([Validators.pattern('[0-9]+'), Validators.minLength(10), Validators.maxLength(10), Validators.required])])
     }
     mailControl.updateValueAndValidity();
     mailConfirmControl.updateValueAndValidity();
