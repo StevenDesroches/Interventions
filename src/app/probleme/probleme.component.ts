@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { validatorCaracter } from '../shared/caracteres-validator';
 import { TypeproblemeService } from './typeprobleme.service';
 import { ITypeProbleme } from './typeprobleme';
+import { emailMatcherValidator } from '../shared/emailMatcher-validator';
 
 @Component({
   selector: 'Inter-probleme',
@@ -21,11 +22,11 @@ export class ProblemeComponent implements OnInit {
       prenom: ['',Validators.compose([validatorCaracter.longueurMinimum(3), Validators.maxLength(200), validatorCaracter.sansEspaces, Validators.required])],
       nom: ['',Validators.compose([validatorCaracter.longueurMinimum(3), Validators.maxLength(200), validatorCaracter.sansEspaces, Validators.required])],
       noTypeProbleme: ['', Validators.required],
-      telephone: [{value: '', disabled: true}],
-      courrielGroup:this.fb.group({
+      courrielGroup: this.fb.group({
         courriel: [{value: '', disabled: true}],
         courrielConfirmation: [{value: '', disabled: true}]
-      })
+      }),
+      telephone: [{value: '', disabled: true}]
     });
 
     this.typeProbleme.obtenirTypeProbleme()
@@ -37,6 +38,7 @@ export class ProblemeComponent implements OnInit {
     const mailControl = this.problemeForm.get('courrielGroup.courriel');
     const mailConfirmControl = this.problemeForm.get('courrielGroup.courrielConfirmation');
     const telephoneControl = this.problemeForm.get('telephone');
+    const mailGroupControl = this.problemeForm.get('courrielGroup');
 
     mailControl.clearValidators();
     mailControl.reset();
@@ -50,10 +52,20 @@ export class ProblemeComponent implements OnInit {
     telephoneControl.reset();
     telephoneControl.disable();
 
-    if (notification === 'OuiNotification') {
+    mailGroupControl.clearValidators();
+    mailGroupControl.reset();
+    mailGroupControl.disable();
+
+    if (notification === 'CourrielNotification') {
+      mailControl.setValidators([Validators.compose([Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.required])]);
+      mailControl.enable();
+      mailConfirmControl.setValidators([Validators.compose([Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+'), Validators.required])]);
+      mailConfirmControl.enable();
+      mailGroupControl.setValidators([Validators.compose([emailMatcherValidator.courrielDifferents()])]);
+    } else if (notification === 'OuiNotification') {
       mailControl.setValidators([Validators.required]);
       mailControl.enable();
-      mailConfirmControl.setValidators([Validators.required]);
+      mailConfirmControl.setValidators([Validators.required],);
       mailConfirmControl.enable();
       telephoneControl.setValidators([Validators.required]);
       telephoneControl.enable();
@@ -61,6 +73,7 @@ export class ProblemeComponent implements OnInit {
     mailControl.updateValueAndValidity();
     mailConfirmControl.updateValueAndValidity();
     telephoneControl.updateValueAndValidity();
+    mailGroupControl.updateValueAndValidity();
   }
 
 }
