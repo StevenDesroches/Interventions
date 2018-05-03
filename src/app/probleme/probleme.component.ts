@@ -26,12 +26,17 @@ export class ProblemeComponent implements OnInit {
         courriel: [{value: '', disabled: true}],
         courrielConfirmation: [{value: '', disabled: true}]
       }),
-      telephone: [{value: '', disabled: true}]
+      telephone: [{value: '', disabled: true}],
+      notificationRadio: ['NonNotification'],
+      descriptionProbleme: ['', [Validators.required, Validators.minLength(5)]],
+      noUnite: '',
+      dateProbleme: { value: Date(), disabled: true } 
     });
 
     this.typeProbleme.obtenirTypeProbleme()
     .subscribe(cat => this.lesTypesProblemes = cat,
                 error => this.errorMessage = <any>error);
+      this.problemeForm.get('notificationRadio').valueChanges.subscribe(value => this.appliquerNotification(value));
   }
 
   appliquerNotification(notification: string): void {

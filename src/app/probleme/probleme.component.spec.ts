@@ -44,7 +44,7 @@ describe('ProblemeComponent', () => {
     let control = component.problemeForm.controls['prenom'];
     control.setValue('a'.repeat(3));
     errors = control.errors || {};
-    expect(errors['longueurMinimum']).toBeTruthy();
+    expect(errors['longueurMinimum']).toBeNull();
  });
 
  it('Test 3, zone PRÉNOM valide avec 200 caractères', () => {
@@ -52,7 +52,7 @@ describe('ProblemeComponent', () => {
   let control = component.problemeForm.controls['prenom'];
   control.setValue('a'.repeat(200));
   errors = control.errors || {};
-  expect(errors['longueurMinimum']).toBeTruthy();
+  expect(errors['longueurMinimum']).toBeNull();
  });
 
  it('Test 4, zone PRÉNOM invalide avec aucune valeur', () => {
@@ -275,12 +275,10 @@ describe('ProblemeComponent', () => {
 
   it('Zone TELEPHONE est valide avec 10 chiffres consécutifs quand notifier par messagerie texte', () => {
     component.appliquerNotification('textNotification');
-    let errors = {};
-
+    
     let telephone = component.problemeForm.get('telephone');
     telephone.setValue("0".repeat(10));
 
-    errors = telephone.errors || {};
     expect(telephone.valid).toBeTruthy();
   });
 });
