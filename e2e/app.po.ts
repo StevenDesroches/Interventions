@@ -46,7 +46,7 @@ export class AppPage {
     element(by.id('descriptionProblemeId')).sendKeys('none');
   }
 
-  obtenirClasseZoneDescriptionProbleme()   { 
+  obtenirClasseZoneDescriptionProbleme() { 
     return element(by.id('descriptionProblemeId')).getAttribute("class");
   }
 }
